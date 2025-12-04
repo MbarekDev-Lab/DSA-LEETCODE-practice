@@ -16,14 +16,13 @@ public class Main {
         }
     }
 
-
     public static void main(String[] args) {
         // printItems(10, 5);
 
-        LinkedList myList = new LinkedList(4);
-        myList.append(10);
-        myList.prepend(1);
-        myList.printList();
+        LinkedList myLinkedList = new LinkedList(4);
+        myLinkedList.append(10);
+        myLinkedList.prepend(1);
+        myLinkedList.printList();
 //        System.out.println("Head: " + myList.getHead());
 //        System.out.println("Tail: " + myList.getTail());
 //        System.out.println("Length: " + myList.getLength());
@@ -51,8 +50,19 @@ public class Main {
         }
         System.out.println("null");
 
+
+        Node removed = myLinkedList.removeLast();
+        if (removed != null) {
+            System.out.println("Removed: " + removed.value);
+        } else {
+            System.out.println("List was empty");
+        }
+
+        System.out.println(myLinkedList.get(2).value);
+
 //        1 -> 4 -> 10 -> null
 //        11 -> 3 -> 23 -> 7 -> 4 -> null
+//        Removed: 10
 
 //        head = {
 //                "value" = 11,
