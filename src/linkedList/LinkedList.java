@@ -134,4 +134,79 @@ public class LinkedList {
     }
 
 
+    // --------------------
+    //      Insert O(1)
+    // --------------------
+
+    public boolean insert(int index, int value) {
+        if (index < 0 || index > length) return false;
+
+        if (index == 0) {
+            prepend(value);
+            return true;
+        }
+
+        if (index == length) {
+            append(value);
+            return true;
+        }
+
+        Node newNode = new Node(value);
+        Node tempNode = get(index - 1);
+
+        newNode.next = tempNode.next;
+        tempNode.next = newNode;
+
+        length++;
+        return true;
+    }
+
+    // --------------------
+    //      Remove O(1)
+    // --------------------
+
+    public Node remove(int index) {
+        if (index < 0 || index >= length) return null;
+
+        if (index == 0) return removeFirst();
+
+        if (index == length - 1) return removeLast();
+
+        Node prev = get(index - 1);
+        Node removed = prev.next;
+
+        prev.next = removed.next;
+        removed.next = null;
+
+        length--;
+        return removed;
+
+    }
+
+
+    // --------------------
+    //      Reverse O(1)
+    // --------------------
+    public void reverse() {
+
+        Node temp = head;
+        head = tail;
+        tail = temp;
+
+        Node after = temp.next;
+        Node befor = null;
+
+        for (int i = 0; i < length; i++) {
+
+            after = temp.next;
+            temp.next = befor;
+            befor = temp;
+            temp = after;
+
+        }
+
+
+    }
+
+
 }
