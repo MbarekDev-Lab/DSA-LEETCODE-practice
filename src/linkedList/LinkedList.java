@@ -1,5 +1,8 @@
 package linkedList;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class LinkedList {
 
     private Node head;
@@ -204,9 +207,189 @@ public class LinkedList {
             temp = after;
 
         }
+    }
 
+    // --------------------
+    //  find Middle Node O(n) time, O(1) space
+    // --------------------
+
+    public Node findMiddleNode() {
+        Node slow = head;
+        Node fast = head;
+
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        return slow;
 
     }
 
+    // --------------------
+    //  Floyd’s Tortoise & Hare :
+    // --------------------
+    public boolean hasLoop() {
+        Node slow = head;
+        Node fast = head;
+
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+
+            if (slow == fast) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // --------------------
+    //  Find Kth Node From End :
+    // --------------------
+    public Node findKthFromEnd(int k) {
+        if (k <= 0) return null;
+        Node fast = head;
+        Node slow = head;
+
+        for (int i = 0; i < k; i++) {
+            if (fast == null) return null; // k is larger than list length
+            fast = fast.next;
+        }
+
+        while (fast != null) {
+            fast = fast.next;
+            slow = slow.next;
+        }
+
+        return slow;
+    }
+
+    // --------------------
+    // HashSet (O(n))
+    // --------------------
+    public void removeDuplicates() {
+        if (head == null) return;
+        Set<Integer> seen = new HashSet<>();
+        Node current = head;
+        Node prev = null;
+
+        while (current != null) {
+            if (seen.contains(current.value)) {
+                // Duplicate found → remove it
+                prev.next = current.next;
+                length--;
+            } else {
+                seen.add(current.value);
+                prev = current;
+            }
+            current = current.next;
+        }
+    }
+
+    // --------------------
+    // binaryToDecimal (O(n))
+    // --------------------
+    public int binaryToDecimal() {
+        int num = 0;
+        Node current = head;
+        while (current != null) {
+            num = num * 2 + current.value;   // shift left and add bit
+            current = current.next;
+        }
+        return num;
+    }
+
+
+    // --------------------
+    // partitions List (O(n))
+    // --------------------
+    public void partitionList(int x) {
+        if (head == null) return;
+
+        Node beforeHead = new Node(0);
+        Node beforeTail = beforeHead;
+
+        Node afterHead = new Node(0);
+        Node afterTail = afterHead;
+
+        Node current = head;
+
+        while (current != null) {
+            if (current.value < x) {
+                beforeTail.next = current;
+                beforeTail = current;
+            } else {
+                afterTail.next = current;
+                afterTail = current;
+            }
+            current = current.next;
+        }
+
+        afterTail.next = null;
+
+        beforeTail.next = afterHead.next;
+
+        head = beforeHead.next;
+    }
+
+
+    // --------------------
+    // reverse Between
+    // --------------------
+    public void reverseBetween(int m, int n) {
+        if (head == null) return;
+
+        Node current = head;
+        Node prev = null;
+
+        for (int i = 0; i < m; i++) {
+            prev = current;
+            current = current.next;
+        }
+
+        Node beforeStart = prev;
+        Node startNode = current;
+
+        Node next = null;
+        prev = null;
+
+        for (int i = 0; i <= n - m; i++) {
+            next = current.next;
+            current.next = prev;
+            prev = current;
+            current = next;
+        }
+
+        if (beforeStart != null) {
+            beforeStart.next = prev;
+        } else {
+            head = prev;
+        }
+
+        startNode.next = current;
+    }
+
+
+    // --------------------
+    // swap node in pairs
+    // --------------------
+    public void swapPairs() {
+        Node dummy = new Node(0);
+        dummy.next = head;
+
+        Node prev = dummy;
+        while (prev.next != null && prev.next.next != null) {
+            Node first = prev.next;
+            Node second = prev.next.next;
+
+            first.next = second.next;
+            second.next = first;
+            prev.next = second;
+            prev = first;
+        }
+
+        head = dummy.next;
+    }
 
 }

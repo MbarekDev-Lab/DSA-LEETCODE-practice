@@ -131,7 +131,6 @@ public class Main {
         boolean ok = myLinkedList.insert(99, 123);
         System.out.println("Insert at invalid index: " + ok);
 
-
         Node removedNode = myLinkedList.remove(1);
         if (removedNode != null) {
             System.out.println("Removed Node at index 1: " + removedNode.value);
@@ -146,6 +145,8 @@ public class Main {
         System.out.println("Reversed List:");
         myLinkedList.printList();
 
-    }
+        Node middleNode = myLinkedList.findMiddleNode();
+        System.out.println(middleNode.value); //55
 
+    }
 }
