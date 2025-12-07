@@ -198,4 +198,177 @@ public class DoublyLinkedList {
     }
 
 
+    public boolean isPalindrome() {
+        if (head == null || head.next == null) return true;
+
+        Node tail = head;
+        while (tail.next != null) {
+            tail = tail.next;
+        }
+
+        Node left = head;
+        Node right = tail;
+
+        while (left != right && left.prev != right) {
+            if (left.value != right.value) {
+                return false;
+            }
+            left = left.next;
+            right = right.prev;
+        }
+
+        return true;
+    }
+
+
+    public void reverse() {
+        if (length <= 1) {
+            return;
+        }
+
+        Node current = head;
+        Node temp = null;
+
+        // Swap next and prev pointers for every node
+        while (current != null) {
+            temp = current.prev;
+            current.prev = current.next;
+            current.next = temp;
+            current = current.prev; // moving "forward" using swapped links
+        }
+
+        // After swapping everything, temp is at the old head
+        // So tail becomes head, and head becomes tail
+        temp = head;
+        head = tail;
+        tail = temp;
+    }
+
+
+    public void partitionList(int x) {
+        if (head == null || head.next == null) return;
+
+        Node lessHead = new Node(0);
+        Node greaterHead = new Node(0);
+
+        Node lessTail = lessHead;
+        Node greaterTail = greaterHead;
+
+        Node current = head;
+
+        while (current != null) {
+            Node nextNode = current.next;
+            current.prev = current.next = null;
+
+            if (current.value < x) {
+                lessTail.next = current;
+                current.prev = lessTail;
+                lessTail = current;
+            } else {
+                greaterTail.next = current;
+                current.prev = greaterTail;
+                greaterTail = current;
+            }
+
+            current = nextNode;
+        }
+
+        // Stitch lists together
+        if (lessHead.next == null) {
+            // No < x nodes → greater list stays as is
+            head = greaterHead.next;
+            if (head != null) head.prev = null;
+            return;
+        }
+
+        // Connect less + greater
+        lessTail.next = greaterHead.next;
+
+        if (greaterHead.next != null) {
+            greaterHead.next.prev = lessTail;
+        }
+
+        // New head
+        head = lessHead.next;
+        head.prev = null;
+    }
+
+
+    public void reverseBetween(int startIndex, int endIndex) {
+        if (head == null || startIndex == endIndex) return;
+
+        Node dummy = new Node(0);
+        dummy.next = head;
+        head.prev = dummy;
+
+        Node prev = dummy;
+        // 1. Move prev to the node right before startIndex
+        for (int i = 0; i < startIndex; i++) {
+            if (prev.next == null) return; // startIndex out of bounds
+            prev = prev.next;
+        }
+
+        // current is the first node in the segment to reverse
+        Node current = prev.next;
+
+        // 2. Reverse nodes in-place by removing the next node and inserting it after prev
+        for (int i = 0; i < endIndex - startIndex; i++) {
+            Node nodeToMove = current.next;
+
+            // detach nodeToMove
+            current.next = nodeToMove.next;
+            if (nodeToMove.next != null) {
+                nodeToMove.next.prev = current;
+            }
+
+            // move nodeToMove to the front of the sublist
+            nodeToMove.next = prev.next;
+            prev.next.prev = nodeToMove;
+
+            prev.next = nodeToMove;
+            nodeToMove.prev = prev;
+        }
+
+        // Reset head
+        head = dummy.next;
+        head.prev = null;
+    }
+
+
+
+    public void swapPairs() {
+        if (head == null || head.next == null) return;
+
+        Node current = head;
+
+        // The second node will become the new head
+        head = head.next;
+
+        while (current != null && current.next != null) {
+
+            Node first  = current;
+            Node second = current.next;
+            Node prev   = first.prev;
+            Node next   = second.next;
+
+            // Link second -> first
+            second.prev = prev;
+            second.next = first;
+
+            first.prev = second;
+            first.next = next;
+
+            // Fix prev.next if exists
+            if (prev != null) prev.next = second;
+
+            // Fix next.prev if exists
+            if (next != null) next.prev = first;
+
+            // Move forward two nodes
+            current = next;
+        }
+    }
+
+
+
 }
