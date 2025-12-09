@@ -1,128 +1,52 @@
-import linkedList.DoublyLinkedList;
+import queue.Queue;
+import stack.StackList;
 
 public class Main {
     public static void main(String[] args) {
+        Queue myQueue = new Queue(10);
+        System.out.println("Initial queue:");
+        myQueue.printQueue();
 
-        System.out.println("=== BASIC OPERATIONS ===");
+        // Enqueue values
+        myQueue.enqueue(20);
+        myQueue.enqueue(30);
+        System.out.println("\nAfter enqueuing 20 and 30:");
+        myQueue.printQueue();
 
-        DoublyLinkedList myDLL = new DoublyLinkedList(1);
-        myDLL.printList();       // 1
-        myDLL.getHead();         // 1
-        myDLL.getTail();         // 1
-        myDLL.getLength();       // 1
+        // Peek at the first element
+        System.out.println("\nPeek: " + myQueue.peek());
 
-        myDLL.append(2);         // DLL: 1 <-> 2
-        myDLL.append(3);         // DLL: 1 <-> 2 <-> 3
-        myDLL.printList();
+        // Dequeue a value
+        Queue.Node removed = myQueue.dequeue();
+        System.out.println("\nDequeued: " + removed.value);
+        System.out.println("Queue after dequeue:");
+        myQueue.printQueue();
 
-        System.out.println("removeLast: " + myDLL.removeLast());
-        System.out.println("removeLast: " + myDLL.removeLast());
-        System.out.println("removeLast: " + myDLL.removeLast());
-        myDLL.printList();
+        // Dequeue all to test empty state
+        myQueue.dequeue();
+        myQueue.dequeue();
+        System.out.println("\nQueue after dequeuing all elements:");
+        myQueue.printQueue();
+        System.out.println("Is queue empty? " + myQueue.isEmpty());
 
-        myDLL.prepend(3);        // DLL: 3
-        System.out.println("removeFirst: " + myDLL.removeFirst());
-        myDLL.printList();
+        // Enqueue after emptying
+        myQueue.enqueue(50);
+        System.out.println("\nAfter enqueuing 50:");
+        myQueue.printQueue();
+        System.out.println("First: " + myQueue.getFirst().value + ", Last: " + myQueue.getLast().value);
 
-        myDLL.prepend(4);        // DLL: 4
-        myDLL.set(0, 5);
-        System.out.println("Node at index 0: " + myDLL.get(0));
 
-        boolean inserted = myDLL.insert(0, 5);
-        System.out.println("Inserted at index 0: " + inserted);
+        StackList<Object> myStack = new StackList<>();
+        myStack.push("mbarek");
+        myStack.push("20");
+        myStack.push(30);
 
-        System.out.println("Removed index 0: " + myDLL.remove(0));
 
-        System.out.println("\n=== PALINDROME ===");
-        DoublyLinkedList dll = new DoublyLinkedList(1);
-        dll.append(2);
-        dll.append(3);
-        dll.append(2);
-        dll.append(1);
+        System.out.println(myStack.pop());
+        System.out.println(myStack.reverseString("Test 5: Spaces and Symbols"));
 
-        dll.printList();
-        System.out.println("Is palindrome? " + dll.isPalindrome());
 
-        System.out.println("\n=== REVERSE ===");
-        dll.reverse();
-        dll.printList();
-
-        System.out.println("\n=== PARTITION LIST (x = 5) ===");
-
-        DoublyLinkedList p = new DoublyLinkedList(3);
-        p.append(8);
-        p.append(5);
-        p.append(10);
-        p.append(2);
-        p.append(1);
-
-        p.printList();
-        p.partitionList(5);
-        p.printList();
-
-        System.out.println("\n=== REVERSE BETWEEN (1, 3) ===");
-
-        DoublyLinkedList r = new DoublyLinkedList(1);
-        r.append(2);
-        r.append(3);
-        r.append(4);
-        r.append(5);
-
-        r.printList();         // 1 <-> 2 <-> 3 <-> 4 <-> 5
-        r.reverseBetween(1, 3);
-        r.printList();         // 1 <-> 4 <-> 3 <-> 2 <-> 5
-
-        System.out.println("\n=== SWAP PAIRS ===");
-
-        DoublyLinkedList s = new DoublyLinkedList(1);
-        s.append(2);
-        s.append(3);
-        s.append(4);
-        s.append(5);
-
-        s.printList();         // 1 <-> 2 <-> 3 <-> 4 <-> 5
-        s.swapPairs();
-        s.printList();         // 2 <-> 1 <-> 4 <-> 3 <-> 5
-
-        /**
-         * Output:
-         * === BASIC OPERATIONS ===
-         * DLL: 1
-         * Head: 1
-         * Tail: 1
-         * Length: 1
-         * DLL: 1 <-> 2 <-> 3
-         * removeLast: 3
-         * removeLast: 2
-         * removeLast: 1
-         * DLL:
-         * removeFirst: 3
-         * DLL:
-         * Node at index 0: 5
-         * Inserted at index 0: true
-         * Removed index 0: 5
-         *
-         * === PALINDROME ===
-         * DLL: 1 <-> 2 <-> 3 <-> 2 <-> 1
-         * Is palindrome? true
-         *
-         * === REVERSE ===
-         * DLL: 1 <-> 2 <-> 3 <-> 2 <-> 1
-         *
-         * === PARTITION LIST (x = 5) ===
-         * DLL: 3 <-> 8 <-> 5 <-> 10 <-> 2 <-> 1
-         * DLL: 3 <-> 2 <-> 1 <-> 8 <-> 5 <-> 10
-         *
-         * === REVERSE BETWEEN (1, 3) ===
-         * DLL: 1 <-> 2 <-> 3 <-> 4 <-> 5
-         * DLL: 1 <-> 4 <-> 3 <-> 2 <-> 5
-         *
-         * === SWAP PAIRS ===
-         * DLL: 1 <-> 2 <-> 3 <-> 4 <-> 5
-         * DLL: 2 <-> 1 <-> 4 <-> 3 <-> 5
-         */
-
+        myStack.printStack();
     }
-
 
 }
