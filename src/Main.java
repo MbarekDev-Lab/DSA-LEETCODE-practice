@@ -35,18 +35,35 @@ public class Main {
         myQueue.printQueue();
         System.out.println("First: " + myQueue.getFirst().value + ", Last: " + myQueue.getLast().value);
 
-
         StackList<Object> myStack = new StackList<>();
         myStack.push("mbarek");
         myStack.push("20");
         myStack.push(30);
 
-
         System.out.println(myStack.pop());
         System.out.println(myStack.reverseString("Test 5: Spaces and Symbols"));
-
-
         myStack.printStack();
+
+        System.out.println("Test 7: Nested Unbalanced");
+        System.out.println("Input: '(()'");
+        System.out.println("Expected: false");
+        System.out.println("Actual: " + myStack.isBalancedParentheses("()())"));
+        System.out.println();
+
+
+        // Test 1: Empty stack
+        System.out.println("Test 1: Empty Stack");
+        StackList<Integer> stack = new StackList<>();
+        stack.push(3);
+        stack.push(1);
+        stack.push(4);
+        stack.push(2);
+        myStack.sortStack(stack);
+        System.out.println("Expected (top to bottom): empty");
+        stack.printStack();
+        System.out.println();
+
+
     }
 
 }

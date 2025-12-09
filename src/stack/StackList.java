@@ -43,7 +43,6 @@ public class StackList<T> {
     }
 
 
-
     public static String reverseString(String str) {
         StackList<Character> stack = new StackList<>();
 
@@ -59,6 +58,59 @@ public class StackList<T> {
 
         return reversed.toString();
     }
+
+    public static boolean isBalancedParentheses(String str) {
+        StackList<Character> stack = new StackList<>();
+        for (char c : str.toCharArray()) {
+            if (c == '(') {
+                stack.push(c);
+            } else if (c == ')') {
+                if (stack.isEmpty()) return false;
+                stack.pop();
+            }
+        }
+        return stack.isEmpty();
+    }
+
+    public static void sortStack(StackList<Integer> stack) {
+        StackList<Integer> sorted = new StackList<>();
+
+        while (!stack.isEmpty()) {
+            int temp = stack.pop();
+
+            while (!sorted.isEmpty() && sorted.peek() > temp) {
+                stack.push(sorted.pop());
+            }
+            sorted.push(temp);
+        }
+
+        while (!sorted.isEmpty()) {
+            stack.push(sorted.pop());
+        }
+    }
+
+    public void enqueue(int value) {
+        StackList<Integer> stack1 = new StackList<>();
+        StackList<Integer> stack2 = new StackList<>();
+
+        while (!stack1.isEmpty()) {
+            stack2.push(stack1.pop());
+        }
+        stack1.push(value);
+
+        while (!stack2.isEmpty()) {
+            stack1.push(stack2.pop());
+        }
+    }
+
+    public Integer dequeue() {
+        StackList<Integer> stack1 = new StackList<>();
+        if (isEmpty()) {
+            return null;
+        }
+        return stack1.pop();
+    }
+
 
 
 }
