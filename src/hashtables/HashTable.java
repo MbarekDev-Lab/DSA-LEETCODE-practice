@@ -2,6 +2,8 @@ package hashtables;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class HashTable {
@@ -94,5 +96,32 @@ public class HashTable {
         }
         return allKeys;
     }
+
+    //This is O(n × m) (nested loops).
+    public static boolean itemInCommon(int[] arr1, int[] arr2) {
+        for (int i : arr1) {
+            for (int j : arr2) {
+                if (i == j) return true;
+            }
+        }
+        return false;
+    }
+
+    // This is O(n + m) (fast)
+    public static boolean itemInCommonHT(int[] arr1, int[] arr2) {
+        Map<Integer, Boolean> ht = new HashMap<>();
+
+
+        for (int i : arr1) {
+            ht.put(i, true);
+        }
+
+        for (int j : arr2) {
+            if (ht.get(j) != null) return true;
+        }
+
+        return false;
+    }
+
 
 }

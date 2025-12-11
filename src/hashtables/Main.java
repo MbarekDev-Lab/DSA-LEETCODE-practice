@@ -14,5 +14,8 @@ public class Main {
         System.out.println("get nails -> " + hashTable.get("nails"));
 
         System.out.println("get keys  -> " + hashTable.keys());
+
+        System.out.println(hashTable.itemInCommon(new int[]{1, 3, 5}, new int[]{2, 4, 5}));
+        System.out.println(hashTable.itemInCommonHT(new int[]{1, 3, 5}, new int[]{2, 4, 5}));
     }
 }
