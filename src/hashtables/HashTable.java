@@ -1,10 +1,7 @@
 package hashtables;
 
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 public class HashTable {
 
@@ -122,6 +119,90 @@ public class HashTable {
 
         return false;
     }
+
+
+    //HT: Find Duplicates ( O(n) time, O(n) space) :
+    public static List<Integer> findDuplicates(int[] nums) {
+
+        HashMap<Integer, Integer> map = new HashMap<>();
+        List<Integer> duplicates = new ArrayList<>();
+
+        for (int num : nums) {
+            map.put(num, map.getOrDefault(num, 0) + 1);
+        }
+
+        for (int key : map.keySet()) {
+            if (map.get(key) > 1) {
+                duplicates.add(key);
+            }
+        }
+
+        return duplicates;
+    }
+
+    //Time complexity is O(n), space complexity O(1)
+    public static Character firstNonRepeatingChar(String str) {
+        if (str == null || str.length() == 0) {
+            return null;
+        }
+
+        HashMap<Character, Integer> map = new HashMap<>();
+
+        for (char c : str.toCharArray()) {
+            map.put(c, map.getOrDefault(c, 0) + 1);
+        }
+
+        for (char c : str.toCharArray()) {
+            if (map.get(c) == 1) {
+                return c;
+            }
+        }
+
+        return null;
+    }
+
+
+    public static List<List<String>> groupAnagrams(String[] strings) {
+        List<List<String>> result = new ArrayList<>();
+
+        if (strings == null || strings.length == 0) return result;
+
+        HashMap<String, List<String>> map = new HashMap<>();
+
+        for (String word : strings) {
+            char[] chars = word.toCharArray();
+            Arrays.sort(chars);
+            String key = new String(chars);
+
+            // Add the word into the correct group
+            if (!map.containsKey(key)) {
+                map.put(key, new ArrayList<>());
+            }
+            map.get(key).add(word);
+        }
+
+        result.addAll(map.values());
+
+        return result;
+    }
+
+    // Time: O(n),    O(n) space.
+    public static int[] twoSum(int[] nums, int target) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+
+        for (int i = 0; i < nums.length; i++) {
+            int complement = target - nums[i];
+
+            if (map.containsKey(complement)) {
+                return new int[] { map.get(complement), i };
+            }
+
+            map.put(nums[i], i);
+        }
+
+        return new int[] {};
+    }
+
 
 
 }
