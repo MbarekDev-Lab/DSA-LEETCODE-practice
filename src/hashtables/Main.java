@@ -1,6 +1,13 @@
 package hashtables;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class Main {
+    private static String formatResult(int[] result) {
+        return result.length == 0 ? "[]" : Arrays.toString(result);
+    }
+
     public static void main(String[] args) {
         HashTable hashTable = new HashTable();
 
@@ -39,6 +46,21 @@ public class Main {
         String[] input2 = {"dog", "cat"};
         System.out.println("Expected: [[dog], [cat]] (order may vary)");//Expected: [[dog], [cat]] (order may vary)
         System.out.println("Actual: " + hashTable.groupAnagrams(input2)); //Actual: [[cat], [dog]]
+        System.out.println();
+
+        // Test : Basic subarray
+        System.out.println("Test 1: Basic Subarray");
+        int[] nums1 = {1, 2, 3, 4, 5};
+        int target1 = 9;
+        System.out.println("Expected: Indices of subarray summing to 9");
+        System.out.println("Actual: " + formatResult(hashTable.subarraySum(nums1, target1)));
+        System.out.println();
+
+        // Test 1: Duplicates removed
+        System.out.println("Test 1: Duplicates Removed");
+        List<Integer> list1 = Arrays.asList(1, 2, 2, 3, 3, 4);
+        System.out.println("Expected: [1, 2, 3, 4]");
+        System.out.println("Actual: " + formatResult(hashTable.removeDuplicates(list1)));
         System.out.println();
 
 

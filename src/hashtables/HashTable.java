@@ -194,15 +194,48 @@ public class HashTable {
             int complement = target - nums[i];
 
             if (map.containsKey(complement)) {
-                return new int[] { map.get(complement), i };
+                return new int[]{map.get(complement), i};
             }
 
             map.put(nums[i], i);
         }
 
-        return new int[] {};
+        return new int[]{};
     }
 
+
+    //O(n) time,
+    public static int[] subarraySum(int[] nums, int target) {
+        Map<Integer, Integer> map = new HashMap<>();
+
+        int prefixSum = 0;
+
+        map.put(0, -1);
+
+        for (int i = 0; i < nums.length; i++) {
+            prefixSum += nums[i];
+
+            if (map.containsKey(prefixSum - target)) {
+                int start = map.get(prefixSum - target) + 1;
+                int end = i;
+                return new int[]{start, end};
+            }
+
+            map.putIfAbsent(prefixSum, i);
+        }
+        return new int[]{};
+    }
+
+    //O(n) time.
+    public static int[] removeDuplicates(List<Integer> myList) {
+        Set<Integer> set = new HashSet<>(myList);
+        return new int[0];
+    }
+
+    public static List<Integer> removeDuplicatesLinkedHashSet(List<Integer> myList) {
+        Set<Integer> set = new LinkedHashSet<>(myList);
+        return new ArrayList<>(set);
+    }
 
 
 }
