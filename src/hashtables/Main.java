@@ -1,11 +1,20 @@
 package hashtables;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class Main {
     private static String formatResult(int[] result) {
         return result.length == 0 ? "[]" : Arrays.toString(result);
+    }
+
+    private static String formatPairs(List<int[]> pairs) {
+        List<String> formatted = new ArrayList<>();
+        for (int[] pair : pairs) {
+            formatted.add(Arrays.toString(pair));
+        }
+        return formatted.toString();
     }
 
     public static void main(String[] args) {
@@ -56,12 +65,23 @@ public class Main {
         System.out.println("Actual: " + formatResult(hashTable.subarraySum(nums1, target1)));
         System.out.println();
 
-        // Test 1: Duplicates removed
+        // Test : Duplicates removed
         System.out.println("Test 1: Duplicates Removed");
         List<Integer> list1 = Arrays.asList(1, 2, 2, 3, 3, 4);
         System.out.println("Expected: [1, 2, 3, 4]");
         System.out.println("Actual: " + formatResult(hashTable.removeDuplicates(list1)));
         System.out.println();
+
+        // Test : Single pair (actually multiple results summing to same target)
+        System.out.println("Test 1: Find Pairs Summing to Target");
+        int[] arr1a = {1, 2, 3};
+        int[] arr2a = {4, 5, 6};
+        int target2 = 7;
+        System.out.println("Expected: Pairs like [1,6], [2,5], [3,4]");
+        System.out.println("Actual: " + formatPairs(hashTable.findPairs(arr1a, arr2a, target2)));
+        System.out.println();
+
+
 
 
     }

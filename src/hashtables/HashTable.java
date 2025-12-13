@@ -237,5 +237,61 @@ public class HashTable {
         return new ArrayList<>(set);
     }
 
+    // O(n)
+    public static boolean hasUniqueChars(String string) {
+        Set<Character> seen = new HashSet<>();
+
+        for (char c : string.toCharArray()) {
+            if (seen.contains(c)) {
+                return false;
+            }
+            seen.add(c);
+        }
+
+        return true;
+    }
+
+    //  O(1)
+    public static List<int[]> findPairs(int[] arr1, int[] arr2, int target) {
+        List<int[]> result = new ArrayList<>();
+        Set<Integer> set = new HashSet<>();
+        for (int num : arr1) {
+            set.add(num);
+        }
+        for (int num : arr2) {
+            int complement = target - num;
+            if (set.contains(complement)) {
+                result.add(new int[]{complement, num});
+            }
+        }
+        return result;
+    }
+
+    public static int longestConsecutiveSequence(int[] nums) {
+        if (nums == null || nums.length == 0) return 0;
+        Set<Integer> set = new HashSet<>();
+        for (int num : nums) {
+            set.add(num);
+        }
+
+        int longestStreak = 0;
+
+        for (int num : set) {
+            if (!set.contains(num - 1)) {
+                int currentNum = num;
+                int currentStreak = 1;
+
+                while (set.contains(currentNum + 1)) {
+                    currentNum++;
+                    currentStreak++;
+                }
+
+                longestStreak = Math.max(longestStreak, currentStreak);
+            }
+        }
+
+        return longestStreak;
+    }
+
 
 }
