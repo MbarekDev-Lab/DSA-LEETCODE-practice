@@ -1,4 +1,4 @@
-package linkedList;
+package datastructures.linkedList;
 
 import java.util.HashSet;
 import java.util.Set;

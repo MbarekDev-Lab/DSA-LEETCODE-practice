@@ -1,4 +1,4 @@
-package hashtables;
+package datastructures.hashtables;
 
 public class Node {
     String key;

@@ -1,4 +1,4 @@
-package binarysearchtree;
+package datastructures.binarysearchtree;
 
 public class Node {
     int value;

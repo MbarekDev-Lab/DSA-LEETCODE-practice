@@ -1,9 +1,7 @@
-package heaps;
+package datastructures.heaps;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class Heap {
     private final List<Integer> heap;
