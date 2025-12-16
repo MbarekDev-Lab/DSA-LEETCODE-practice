@@ -1,6 +1,7 @@
-package algorithms.sorts;
+package datastructures.binarysearchtree;
 
 public class BST {
+
     private Node root;
 
     public void insert(int value) {
